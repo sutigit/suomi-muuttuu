@@ -69,7 +69,7 @@ export default function MapPlayer(
 
     return (
         <section className='p-10 bg-white w-full'>
-            <button onClick={animateMap}>Play</button>
+            <button className='p-8 bg-black text-white' onClick={animateMap}>Play</button>
         </section>
     );
 }

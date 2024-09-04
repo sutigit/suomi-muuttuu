@@ -8,13 +8,12 @@ import MapPlayer from './MapPlayer';
 import MapView from './MapView';
 
 // ol imports
-import GeoJSON from 'ol/format/GeoJSON.js';
 import Map from 'ol/Map.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
 import View from 'ol/View.js';
 
-export default function MapComponents() {
+export default function MapComponents({statData}: {statData: any}) {
 
   const sourceRef = useRef<VectorSource | null>(null);
   const layerRef = useRef<VectorLayer | null>(null);
