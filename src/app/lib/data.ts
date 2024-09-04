@@ -1,4 +1,6 @@
-export async function get(url: string, body: object): Promise<any | null> {
+'use server';
+
+export async function getStat(url: string, body: object): Promise<any | null> {
     try {
         const response = await fetch(url, {
             method: 'POST',
