@@ -3,9 +3,9 @@
     "source_url": "https://stat.fi/",
     "endpoints": [
         {
-            "source_identifier": "Tunnuslukuja väestöstä alueittain",
+            "source_identifier": "Kuntien avainluvut 1987-2022",
             "query_name": "Asukasluvut kunnittain",
-            "url": "https://pxdata.stat.fi:443/PxWeb/api/v1/fi/StatFin/vaerak/statfin_vaerak_pxt_11ra.px",
+            "url": "https://pxdata.stat.fi:443/PxWeb/api/v1/fi/Kuntien_avainluvut/uusin/kuntien_avainluvut_aikasarja.px",
             "body": {
                 "query": [
                     {
@@ -330,7 +330,7 @@
                         "selection": {
                             "filter": "item",
                             "values": [
-                                "vaesto"
+                                "M411"
                             ]
                         }
                     }
