@@ -1,35 +1,55 @@
-import Map from './components/MapComponent';
+'use client';
+
+import { useRef } from 'react';
+
+import MapEditor from './components/MapEditor';
+import MapPlayer from './components/MapPlayer';
+import MapView from './components/MapView';
+import StatSelector from './components/StatSelector';
+
+// ol imports
+import GeoJSON from 'ol/format/GeoJSON.js';
+import Map from 'ol/Map.js';
+import VectorLayer from 'ol/layer/Vector.js';
+import VectorSource from 'ol/source/Vector.js';
+import View from 'ol/View.js';
 
 export default function App() {
+
+  const sourceRef = useRef<VectorSource | null>(null);
+  const layerRef = useRef<VectorLayer | null>(null);
+  const viewRef = useRef<View | null>(null);
+  const mapRef = useRef<Map | null>(null);
+
 
   return (
     <main className='bg-zinc-300 w-screen h-screen'>
 
-      {/* Background map */}
+      {/* Background Map */}
       <section className='absolute inset-0 w-screen h-screen'>
-        <Map />
+        <MapView
+          sourceRef={sourceRef}
+          layerRef={layerRef}
+          viewRef={viewRef}
+          mapRef={mapRef}
+        />
       </section>
 
-      {/* MAP UI */}
+      {/* App UI */}
       <div className='flex justify-between p-16'>
 
-        {/* API selector */}
-        <section className='z-10 p-10 bg-blue-200 w-96 h-96'>
-          <button>Select</button>
+        <section className='z-10'>
+          <StatSelector />
         </section>
 
-        {/* Editor */}
-        <section className='flex flex-col gap-10 z-10 w-96 h-96'>
-          {/* Player */}
-          <div className='p-10 bg-blue-200 w-full'>
-            <button className='bg-pink-600 p-5 text-white'>Play</button>
-          </div>
-
-          {/* Settings */}
-          <div className='p-10 bg-blue-200 w-full h-96'>
-            <p>Tarkkuus</p>
-          </div>
-        </section>
+        <div className='flex flex-col gap-10 w-96 h-96 z-10'>
+          <MapPlayer
+            sourceRef={sourceRef}
+            layerRef={layerRef}
+            mapRef={mapRef}
+          />
+          <MapEditor />
+        </div>
 
       </div>
     </main>

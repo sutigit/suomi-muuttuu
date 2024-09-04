@@ -17,24 +17,6 @@ import RenderEvent from 'ol/render/Event';
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
 
-interface Feature {
-    type: string;
-    properties: {
-        GML_ID: number;
-        NATCODE: string;
-        NAMEFIN: string;
-        NAMESWE: string;
-        LANDAREA: number;
-        FRESHWAREA: number;
-        SEAWAREA: number;
-        TOTALAREA: number;
-    },
-    geometry: {
-        type: string;
-        coordinates: number[][][][];
-    }
-}
-
 export default function MapComponent() {
     // Use refs for states so that they don't trigger re-renders to avoid losing ol components
     const animating = useRef(false);
@@ -115,9 +97,6 @@ export default function MapComponent() {
     }
 
     return (
-        <div className='w-full h-full'>
-            <button onClick={animateMap} className='bg-purple-500 text-white p-5'>Press me</button>
-            <div className='w-full h-full' id="map" />
-        </div>
+        <div className='w-full h-full' id="map" />
     );
 }
