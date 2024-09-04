@@ -1,7 +1,6 @@
 'use client';
 
 import React, { MutableRefObject, useEffect } from 'react';
-import { revalidatePath } from 'next/cache';
 
 // ol types
 import Map from 'ol/Map';
@@ -16,10 +15,13 @@ import RenderEvent from 'ol/render/Event';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { getRandomColor } from '../lib/utils';
+import { interpolateIntToRGB } from '../lib/utils';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
+
+// themes
+import { themes } from '../lib/themes';
 
 export default function MapView({
     sourceRef,
@@ -32,6 +34,10 @@ export default function MapView({
     viewRef: MutableRefObject<View | null>,
     mapRef: MutableRefObject<Map | null>,
 }) {
+
+    const statMin = 0;
+    const statMax = 100;
+    const statCurrent = 50;
 
     useEffect(() => {
 
@@ -67,7 +73,7 @@ export default function MapView({
         const features = sourceRef.current.getFeatures();
         features.forEach((feature) => {
             feature.setStyle(new Style({
-                fill: new Fill({ color: getRandomColor() }),
+                fill: new Fill({ color: interpolateIntToRGB(statCurrent, statMin, statMax, themes.finland.secondary, themes.finland.primary) }),
             }));
         });
 

@@ -1,7 +1,7 @@
 export default function MapEditor() {
     return (
-        <section className='p-10 bg-blue-200 w-full h-96'>
-            <p>Tarkkuus</p>
+        <section className='p-10 bg-white w-full h-96'>
+            <p>Asetukset</p>
         </section>
     );
 }

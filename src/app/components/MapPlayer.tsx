@@ -4,7 +4,7 @@
 import React, { MutableRefObject, useRef } from 'react';
 
 // My imports
-import { getRandomColor } from '../lib/utils';
+import { interpolateIntToRGB } from '../lib/utils';
 
 // ol imports
 import Map from 'ol/Map.js';
@@ -13,6 +13,9 @@ import VectorSource from 'ol/source/Vector.js';
 import Style from 'ol/style/Style.js';
 import Fill from 'ol/style/Fill.js';
 import RenderEvent from 'ol/render/Event';
+
+// themes
+import { themes } from '../lib/themes';
 
 export default function MapPlayer(
     {
@@ -27,15 +30,20 @@ export default function MapPlayer(
 ) {
 
     const animating = useRef(false);
+    
+    const statMin = 0;
+    const statMax = 100;
+    const statCurrent = 50;
 
     function fillFeatures(event: RenderEvent) {
         setTimeout(() => {
             const features = sourceRef.current?.getFeatures();
             features?.forEach((feature) => {
                 feature.setStyle(new Style({
-                    fill: new Fill({ color: getRandomColor() }),
+                    fill: new Fill({ color: interpolateIntToRGB(statCurrent, statMin, statMax, themes.finland.secondary, themes.finland.primary) }),
                 }));
             });
+
             mapRef.current?.render();
         }, 50)
     }
@@ -52,7 +60,6 @@ export default function MapPlayer(
     function stopAnimation() {
         animating.current = false;
         layerRef.current?.un('postrender', fillFeatures);
-        layerRef.current?.setStyle(new Style({ fill: new Fill({ color: 'coral' }) }));
     }
 
     function animateMap() {
@@ -64,7 +71,7 @@ export default function MapPlayer(
     }
 
     return (
-        <section className='p-10 bg-blue-200 w-full z-10'>
+        <section className='p-10 bg-white w-full z-10'>
             <button onClick={animateMap}>Play</button>
         </section>
     );
