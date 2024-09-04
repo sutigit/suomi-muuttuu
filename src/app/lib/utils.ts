@@ -17,3 +17,11 @@ export function interpolateIntToRGB(value: number, min: number, max: number, sta
 
     return [r, g, b];
 }
+
+export function getMinValue(values: number[]): number {
+    return Math.min(...values);
+}
+
+export function getMaxValue(values: number[]): number {
+    return Math.max(...values);
+}
