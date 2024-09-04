@@ -1,5 +1,3 @@
-'use client';
-
 import React, { MutableRefObject, useEffect } from 'react';
 
 // ol types

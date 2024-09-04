@@ -1,6 +1,3 @@
-'use client';
-'use client';
-
 import React, { MutableRefObject, useRef } from 'react';
 
 // My imports
@@ -71,7 +68,7 @@ export default function MapPlayer(
     }
 
     return (
-        <section className='p-10 bg-white w-full z-10'>
+        <section className='p-10 bg-white w-full'>
             <button onClick={animateMap}>Play</button>
         </section>
     );
