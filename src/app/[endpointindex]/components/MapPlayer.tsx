@@ -1,10 +1,12 @@
 import React, { MutableRefObject, useRef } from 'react';
 
-// My imports
-import { interpolateNumToRGB, natcodeToMetric } from '../lib/utils'; 4
+// My components
+
+// utils
+import { interpolateNumToRGB, natcodeToMetric } from '../../lib/utils';
 
 // definitions
-import { StatData } from '../lib/definitions';
+import { StatData } from '../../lib/definitions';
 
 // ol imports
 import Map from 'ol/Map.js';
@@ -16,7 +18,8 @@ import Fill from 'ol/style/Fill.js';
 import RenderEvent from 'ol/render/Event';
 
 // themes
-import { themes } from '../lib/themes';
+import { themes } from '../../lib/themes';
+
 
 export default function MapPlayer({
     sourceRef,
@@ -117,7 +120,10 @@ export default function MapPlayer({
 
     return (
         <section className='p-8 bg-white w-full shadow rounded-2xl'>
-            <button className='p-8 bg-black text-white' onClick={animateMap}>Play</button>
+
+            <div className='flex gap-5 justify-center items-center'>
+
+            </div>
         </section>
     );
 }

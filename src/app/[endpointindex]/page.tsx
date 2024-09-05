@@ -3,8 +3,8 @@ import { getStat } from '@/app/lib/data';
 import stat from '@/app/lib/endpoints/finland/data.json';
 import { StatData } from '@/app/lib/definitions';
 
-import MapComponents from '@/app/components/MapComponents';
-import StatSelector from '@/app/components/StatSelector';
+import MapComponents from './components/MapComponents';
+import StatSelector from './components/StatSelector';
 
 export default async function GeoStatPage({ params }: { params: { endpointindex: string } }) {
 

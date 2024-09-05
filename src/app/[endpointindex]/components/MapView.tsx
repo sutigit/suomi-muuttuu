@@ -12,14 +12,14 @@ import Fill from 'ol/style/Fill.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { interpolateNumToRGB, natcodeToMetric } from '../lib/utils';
+import { interpolateNumToRGB, natcodeToMetric } from '../../lib/utils';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
 
 // themes
-import { themes } from '../lib/themes';
-import { StatData } from '../lib/definitions';
+import { themes } from '../../lib/themes';
+import { StatData } from '../../lib/definitions';
 
 export default function MapView({
     sourceRef,
