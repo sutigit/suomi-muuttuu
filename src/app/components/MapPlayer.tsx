@@ -33,16 +33,16 @@ export default function MapPlayer(
     const statCurrent = 50;
 
     function fillFeatures(event: RenderEvent) {
-        setTimeout(() => {
-            const features = sourceRef.current?.getFeatures();
-            features?.forEach((feature) => {
-                feature.setStyle(new Style({
-                    fill: new Fill({ color: interpolateIntToRGB(statCurrent, statMin, statMax, themes.finland.secondary, themes.finland.primary) }),
-                }));
-            });
+        // setTimeout(() => {
+        //     const features = sourceRef.current?.getFeatures();
+        //     features?.forEach((feature) => {
+        //         feature.setStyle(new Style({
+        //             fill: new Fill({ color: interpolateIntToRGB(statCurrent, statMin, statMax, themes.finland.secondary, themes.finland.primary) }),
+        //         }));
+        //     });
 
-            mapRef.current?.render();
-        }, 50)
+        //     mapRef.current?.render();
+        // }, 50)
     }
 
     function startAnimation() {

@@ -3,6 +3,7 @@
 
 import { useRef } from 'react';
 
+// components
 import MapEditor from './MapEditor';
 import MapPlayer from './MapPlayer';
 import MapView from './MapView';
@@ -13,14 +14,30 @@ import VectorLayer from 'ol/layer/Vector.js';
 import VectorSource from 'ol/source/Vector.js';
 import View from 'ol/View.js';
 
-export default function MapComponents({statData}: {statData: any}) {
+// definitions
+import { StatData } from '@/app/lib/definitions';
+
+// utils
+import { 
+  getMinValue, 
+  getMaxValue,
+  getMinYear,
+  getMaxYear 
+} from '@/app/lib/utils';
+
+export default function MapComponents({statData}: {statData: StatData }) {
 
   const sourceRef = useRef<VectorSource | null>(null);
   const layerRef = useRef<VectorLayer | null>(null);
   const viewRef = useRef<View | null>(null);
   const mapRef = useRef<Map | null>(null);
 
-
+  // pre-process some stat data
+  const statMinValue = getMinValue(statData.value);
+  const statMaxValue = getMaxValue(statData.value);
+  const statMinYear = getMinYear(statData.dimension[statData.role.time[0]].category.label);
+  const statMaxYear = getMaxYear(statData.dimension[statData.role.time[0]].category.label);
+  
   return (
     <main className='absolute inset-0 flex justify-end'>
 
@@ -31,6 +48,11 @@ export default function MapComponents({statData}: {statData: any}) {
           layerRef={layerRef}
           viewRef={viewRef}
           mapRef={mapRef}
+          statData={statData}
+          statMinValue={statMinValue}
+          statMaxValue={statMaxValue}
+          statMinYear={statMinYear}
+          statMaxYear={statMaxYear}
         />
       </section>
 

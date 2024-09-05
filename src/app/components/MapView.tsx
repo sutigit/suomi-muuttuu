@@ -9,33 +9,40 @@ import View from 'ol/View';
 // ol imports
 import Style from 'ol/style/Style.js';
 import Fill from 'ol/style/Fill.js';
-import RenderEvent from 'ol/render/Event';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { interpolateIntToRGB } from '../lib/utils';
+import { interpolateNumToRGB, natcodeToMetric } from '../lib/utils';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
 
 // themes
 import { themes } from '../lib/themes';
+import { StatData } from '../lib/definitions';
 
 export default function MapView({
     sourceRef,
     layerRef,
     viewRef,
     mapRef,
+    statData,
+    statMinValue,
+    statMaxValue,
+    statMinYear,
+    statMaxYear,
 }: {
     sourceRef: MutableRefObject<VectorSource | null>,
     layerRef: MutableRefObject<VectorLayer | null>,
     viewRef: MutableRefObject<View | null>,
     mapRef: MutableRefObject<Map | null>,
+    statData: StatData,
+    statMinValue: number,
+    statMaxValue: number,
+    statMinYear: number,
+    statMaxYear: number,
 }) {
 
-    const statMin = 0;
-    const statMax = 100;
-    const statCurrent = 50;
 
     useEffect(() => {
 
@@ -69,9 +76,22 @@ export default function MapView({
 
         // Initial fill
         const features = sourceRef.current.getFeatures();
+
         features.forEach((feature) => {
+
+            const natcode = feature.get('NATCODE');
+            const statValue = natcodeToMetric(natcode, statData, statMinYear);
+
+            const color = interpolateNumToRGB(
+                statValue, 
+                statMinValue, 
+                statMaxValue, 
+                themes.finland.secondary, 
+                themes.finland.primary
+            )
+
             feature.setStyle(new Style({
-                fill: new Fill({ color: interpolateIntToRGB(statCurrent, statMin, statMax, themes.finland.secondary, themes.finland.primary) }),
+                fill: new Fill({ color: color }),
             }));
         });
 

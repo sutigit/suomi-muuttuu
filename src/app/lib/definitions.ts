@@ -1,17 +1,28 @@
-interface Feature {
-    type: string;
-    properties: {
-        GML_ID: number;
-        NATCODE: string;
-        NAMEFIN: string;
-        NAMESWE: string;
-        LANDAREA: number;
-        FRESHWAREA: number;
-        SEAWAREA: number;
-        TOTALAREA: number;
+export interface StatIndex {
+    [key: string]: number;
+}
+
+export interface StatLabel {
+    [key: string]: string;
+}
+
+export interface Dimension {
+    [key: string]: {
+        category: {
+            index: StatIndex
+            label: StatLabel
+        }
+    };
+}
+
+export interface StatData {
+    role: {
+        geo: string[],
+        time: string[],
+        metric: string[],
     },
-    geometry: {
-        type: string;
-        coordinates: number[][][][];
-    }
+    dimension: Dimension,
+    id: string[],
+    size: number[],
+    value: number[],
 }

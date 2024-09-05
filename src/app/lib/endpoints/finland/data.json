@@ -4,7 +4,7 @@
     "endpoints": [
         {
             "source_identifier": "Kuntien avainluvut 1987-2022",
-            "query_name": "Asukasluvut kunnittain",
+            "name": "Asukasluvut kunnittain",
             "url": "https://pxdata.stat.fi:443/PxWeb/api/v1/fi/Kuntien_avainluvut/uusin/kuntien_avainluvut_aikasarja.px",
             "body": {
                 "query": [

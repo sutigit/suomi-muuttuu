@@ -1,8 +1,9 @@
-'use server';
+import { StatData } from "./definitions";
 
-export async function getStat(url: string, body: object): Promise<any | null> {
+export async function getStat(url: string, body: object): Promise<StatData | null> {
     try {
         const response = await fetch(url, {
+            cache: 'no-cache',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
