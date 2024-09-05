@@ -4,11 +4,21 @@ import stat from '@/app/lib/endpoints/finland/data.json';
 import { StatData } from '@/app/lib/definitions';
 
 import MapComponents from '@/app/components/MapComponents';
+import StatSelector from '@/app/components/StatSelector';
 
-export default async function GeoStatPage({ params }: { params: { endpointindex: number } }) {
+export default async function GeoStatPage({ params }: { params: { endpointindex: string } }) {
 
-  const statData: StatData | null = await getStat(stat.endpoints[params.endpointindex].url, stat.endpoints[params.endpointindex].body);
+  const statData: StatData | null = await getStat(stat.endpoints[parseInt(params.endpointindex)].url, stat.endpoints[parseInt(params.endpointindex)].body);
 
-  return statData ? <MapComponents statData={statData} /> : <div>loading...</div>;
-  
+  if (!statData) {
+    return <div>loading...</div>;
+  }
+
+  return (
+    <section className='relative w-screen h-screen bg-zinc-200'>
+      <StatSelector endpointindex={parseInt(params.endpointindex)} />
+      <MapComponents statData={statData} />
+    </section>
+  );
+
 }
