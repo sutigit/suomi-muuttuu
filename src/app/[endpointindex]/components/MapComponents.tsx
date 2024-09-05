@@ -7,6 +7,7 @@ import { useRef } from 'react';
 import MapEditor from './MapEditor';
 import MapPlayer from './MapPlayer';
 import MapView from './MapView';
+import MapValues from './MapValues';
 
 // ol imports
 import Map from 'ol/Map.js';
@@ -57,7 +58,12 @@ export default function MapComponents({ statData }: { statData: StatData }) {
       </section>
 
       {/* Map UI */}
-      <div className='flex flex-col gap-10 w-96 h-96 m-20 z-10'>
+      <div className='flex flex-col gap-10 w-96 h-96 m-20 z-10 relative'>
+        
+        <div className='absolute -translate-x-full'>
+          <MapValues />
+        </div>
+
         <MapPlayer
           sourceRef={sourceRef}
           layerRef={layerRef}

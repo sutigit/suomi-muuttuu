@@ -1,6 +1,6 @@
 
 import stat from '@/app/lib/endpoints/finland/data.json';
-import Link from 'next/link'
+import Link from 'next/link';
 import clsx from 'clsx';
 
 export default function StatSelector({ endpointindex }: { endpointindex: number }) {
