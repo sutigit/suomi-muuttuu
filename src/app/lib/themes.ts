@@ -1,5 +1,5 @@
 const finland = {
-    primary: [0, 47, 108],
+    primary: [0, 31, 66],
     secondary: [255, 255, 255]
 }
 

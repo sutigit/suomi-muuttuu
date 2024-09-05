@@ -18,14 +18,14 @@ import View from 'ol/View.js';
 import { StatData } from '@/app/lib/definitions';
 
 // utils
-import { 
-  getMinValue, 
+import {
+  getMinValue,
   getMaxValue,
   getMinYear,
-  getMaxYear 
+  getMaxYear
 } from '@/app/lib/utils';
 
-export default function MapComponents({statData}: {statData: StatData }) {
+export default function MapComponents({ statData }: { statData: StatData }) {
 
   const sourceRef = useRef<VectorSource | null>(null);
   const layerRef = useRef<VectorLayer | null>(null);
@@ -37,7 +37,7 @@ export default function MapComponents({statData}: {statData: StatData }) {
   const statMaxValue = getMaxValue(statData.value);
   const statMinYear = getMinYear(statData.dimension[statData.role.time[0]].category.label);
   const statMaxYear = getMaxYear(statData.dimension[statData.role.time[0]].category.label);
-  
+
   return (
     <main className='absolute inset-0 flex justify-end'>
 
@@ -61,7 +61,13 @@ export default function MapComponents({statData}: {statData: StatData }) {
         <MapPlayer
           sourceRef={sourceRef}
           layerRef={layerRef}
+          viewRef={viewRef}
           mapRef={mapRef}
+          statData={statData}
+          statMinValue={statMinValue}
+          statMaxValue={statMaxValue}
+          statMinYear={statMinYear}
+          statMaxYear={statMaxYear}
         />
         <MapEditor />
       </div>
