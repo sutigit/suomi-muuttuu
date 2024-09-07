@@ -1,6 +1,22 @@
 import React, { MutableRefObject, useRef } from 'react';
 
-// My components
+// shadcn
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
+
+// Media player icons
+import PlayIcon from '@/svg-icons/play';
+import PauseIcon from '@/svg-icons/pause';
+import ToStartIcon from '@/svg-icons/to-start';
+import ToEndIcon from '@/svg-icons/to-end';
+import CaretDownIcon from '@/svg-icons/caret-down';
+
 
 // utils
 import { interpolateNumToRGB, natcodeToMetric } from '../../lib/utils';
@@ -43,32 +59,34 @@ export default function MapPlayer({
     statMaxYear: number,
 }) {
 
-    const animating = useRef<boolean>(false);
-    const lastTime = useRef<number | null>(null);
-    const currentYear = useRef<number>(statMinYear);
-    const speed = useRef<number>(300);
+    const animatingRef = useRef<boolean>(false);
+    const lastTimeRef = useRef<number | null>(null);
+    const currentYearRef = useRef<number>(statMinYear);
+    const speedRef = useRef<number>(300);
+
+    const [animating, setAnimating] = React.useState<boolean>(false);
 
 
     function animateFeatures(event: RenderEvent) {
         const time = event.frameState?.time;
-        if (!time || !lastTime.current) {
+        if (!time || !lastTimeRef.current) {
             console.error('No time');
             return;
         }
 
-        const elapsedTime = time - lastTime.current;
+        const elapsedTime = time - lastTimeRef.current;
 
-        if (currentYear.current <= statMaxYear) {
+        if (currentYearRef.current <= statMaxYear) {
 
-            if (elapsedTime > speed.current) {
+            if (elapsedTime > speedRef.current) {
 
-                console.log('Animating', currentYear.current);
+                console.log('Animating', currentYearRef.current);
                 const features = sourceRef.current?.getFeatures();
 
                 features?.forEach((feature) => {
 
                     const natcode = feature.get('NATCODE');
-                    const statValue = natcodeToMetric(natcode, statData, currentYear.current);
+                    const statValue = natcodeToMetric(natcode, statData, currentYearRef.current);
 
                     const color = interpolateNumToRGB(
                         statValue,
@@ -83,8 +101,8 @@ export default function MapPlayer({
                     }));
                 });
 
-                currentYear.current += 1;
-                lastTime.current = time;
+                currentYearRef.current += 1;
+                lastTimeRef.current = time;
                 mapRef.current?.render();
             }
         } else {
@@ -96,22 +114,22 @@ export default function MapPlayer({
     }
 
     function startAnimation() {
-        animating.current = true;
+        animatingRef.current = true;
 
-        lastTime.current = Date.now();
-        currentYear.current = statMinYear;
+        lastTimeRef.current = Date.now();
+        currentYearRef.current = statMinYear;
         layerRef.current?.on('postrender', animateFeatures);
         // trigger postrender event by changing something: set style to null
         layerRef.current?.setStyle();
     }
 
     function stopAnimation() {
-        animating.current = false;
+        animatingRef.current = false;
         layerRef.current?.un('postrender', animateFeatures);
     }
 
     function animateMap() {
-        if (animating.current) {
+        if (animatingRef.current) {
             stopAnimation();
         } else {
             startAnimation();
@@ -121,8 +139,58 @@ export default function MapPlayer({
     return (
         <section className='p-8 bg-white w-full shadow rounded-2xl'>
 
-            <div className='flex gap-5 justify-center items-center'>
+            {/* Year selector */}
+            <div className='flex justify-between'>
 
+                <Select>
+                    <SelectTrigger className="w-24">
+                        <SelectValue placeholder="1987" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="1987">1997</SelectItem>
+                        <SelectItem value="1988">1988</SelectItem>
+                    </SelectContent>
+                </Select>
+
+                <div className='flex flex-col items-center justify-center mt-2 text-sm'>
+                    <span>2012</span>
+                    <CaretDownIcon width={16} height={16} />
+                </div>
+
+                <Select>
+                    <SelectTrigger className="w-24">
+                        <SelectValue placeholder="2022" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="2022">2022</SelectItem>
+                        <SelectItem value="2023">2023</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+
+            {/* Year slide */}
+            <div className='relative flex items-center h-5 w-full  mt-2 mb-5'>
+                <div className='w-full h-1 bg-black' />
+                <div className='absolute top-0 left-0 w-2 h-full rounded border border-black bg-black' />
+            </div>
+
+            {/* Media player */}
+            <div className='flex gap-5 justify-center items-center'>
+                <ToStartIcon width={16} height={16} />
+                {animating ? <PauseIcon width={24} height={24} /> : <PlayIcon width={24} height={24} />}
+                <ToEndIcon width={16} height={16} />
+                <Select>
+                    <SelectTrigger className="w-24">
+                        <SelectValue placeholder="1 x" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="0.5">0.5 x</SelectItem>
+                        <SelectItem value="0.75">0.75 x</SelectItem>
+                        <SelectItem value="1">1 x</SelectItem>
+                        <SelectItem value="1.25">1.25 x</SelectItem>
+                        <SelectItem value="1.5">1.5 x</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
         </section>
     );
