@@ -3,8 +3,8 @@ import { useState } from "react";
 import ColorPicker from "@/app/components/ColorPicker";
 
 export default function MapEditor() {
-    const [startColor, setStartColor] = useState("#ff0000");
-    const [endColor, setEndColor] = useState("#0000ff");
+    const [startColor, setStartColor] = useState({ r: 255, g: 255, b: 255 });
+    const [endColor, setEndColor] = useState({ r: 0, g: 31, b: 66 });
 
 
     return (
