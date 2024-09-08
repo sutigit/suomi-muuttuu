@@ -15,7 +15,7 @@ export default async function GeoStatPage({ params }: { params: { endpointindex:
   }
 
   return (
-    <section className='relative w-screen h-screen bg-zinc-200'>
+    <section className='relative w-screen h-screen'>
       <StatSelector endpointindex={parseInt(params.endpointindex)} />
       <MapComponents statData={statData} />
     </section>

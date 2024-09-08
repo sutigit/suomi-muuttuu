@@ -12,7 +12,7 @@ import Fill from 'ol/style/Fill.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { interpolateNumToRGB, natcodeToMetric } from '../../lib/utils';
+import { interpolateNumToRGB, natcodeToMetric, hexToRGB } from '../../lib/utils';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
@@ -31,6 +31,8 @@ export default function MapView({
     statMaxValue,
     statMinYear,
     statMaxYear,
+    startColor,
+    endColor,
 }: {
     sourceRef: MutableRefObject<VectorSource | null>,
     layerRef: MutableRefObject<VectorLayer | null>,
@@ -41,6 +43,8 @@ export default function MapView({
     statMaxValue: number,
     statMinYear: number,
     statMaxYear: number,
+    startColor: string,
+    endColor: string,
 }) {
 
 
@@ -77,26 +81,57 @@ export default function MapView({
         // Initial fill
         const features = sourceRef.current.getFeatures();
 
+        const startColorRgb = hexToRGB(startColor);
+        const endColorRgb = hexToRGB(endColor);
+
         features.forEach((feature) => {
 
             const natcode = feature.get('NATCODE');
             const statValue = natcodeToMetric(natcode, statData, statMinYear);
 
             const color = interpolateNumToRGB(
-                statValue, 
-                statMinValue, 
-                statMaxValue, 
-                themes.finland.secondary, 
-                themes.finland.primary
+                statValue,
+                statMinValue,
+                statMaxValue,
+                startColorRgb,
+                endColorRgb,
             )
 
             feature.setStyle(new Style({
-                fill: new Fill({ color: color }),
+                fill: new Fill({ color: [color.r, color.g, color.b] }),
             }));
         });
 
         return () => mapRef.current?.setTarget();
     }, []);
+
+    // Update mapRef on color change
+    useEffect(() => {
+        if (!sourceRef.current) return
+
+        const features = sourceRef.current.getFeatures();
+
+        const startColorRgb = hexToRGB(startColor);
+        const endColorRgb = hexToRGB(endColor);
+
+        features.forEach((feature) => {
+
+            const natcode = feature.get('NATCODE');
+            const statValue = natcodeToMetric(natcode, statData, statMinYear);
+
+            const color = interpolateNumToRGB(
+                statValue,
+                statMinValue,
+                statMaxValue,
+                startColorRgb,
+                endColorRgb,
+            )
+
+            feature.setStyle(new Style({
+                fill: new Fill({ color: [color.r, color.g, color.b] }),
+            }));
+        });
+    }, [startColor, endColor]);
 
     return (
         <div className='w-full h-full' id="mapRef" />

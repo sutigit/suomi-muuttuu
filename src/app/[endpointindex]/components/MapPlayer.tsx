@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef } from 'react';
+import React, { MutableRefObject, useEffect, useRef } from 'react';
 
 // shadcn
 import {
@@ -19,7 +19,7 @@ import CaretDownIcon from '@/svg-icons/caret-down';
 
 
 // utils
-import { interpolateNumToRGB, natcodeToMetric } from '../../lib/utils';
+import { interpolateNumToRGB, natcodeToMetric, hexToRGB} from '../../lib/utils';
 
 // definitions
 import { StatData } from '../../lib/definitions';
@@ -33,9 +33,6 @@ import Style from 'ol/style/Style.js';
 import Fill from 'ol/style/Fill.js';
 import RenderEvent from 'ol/render/Event';
 
-// themes
-import { themes } from '../../lib/themes';
-
 
 export default function MapPlayer({
     sourceRef,
@@ -47,6 +44,8 @@ export default function MapPlayer({
     statMaxValue,
     statMinYear,
     statMaxYear,
+    startColor,
+    endColor,
 }: {
     sourceRef: MutableRefObject<VectorSource | null>,
     layerRef: MutableRefObject<VectorLayer | null>,
@@ -57,6 +56,8 @@ export default function MapPlayer({
     statMaxValue: number,
     statMinYear: number,
     statMaxYear: number,
+    startColor: string,
+    endColor: string,
 }) {
 
     const animatingRef = useRef<boolean>(false);
@@ -65,6 +66,8 @@ export default function MapPlayer({
     const speedRef = useRef<number>(300);
 
     const [animating, setAnimating] = React.useState<boolean>(false);
+    const startColorRgb = hexToRGB(startColor);
+    const endColorRgb = hexToRGB(endColor);
 
 
     function animateFeatures(event: RenderEvent) {
@@ -92,12 +95,12 @@ export default function MapPlayer({
                         statValue,
                         statMinValue,
                         statMaxValue,
-                        themes.finland.secondary,
-                        themes.finland.primary
+                        startColorRgb,
+                        endColorRgb
                     )
 
                     feature.setStyle(new Style({
-                        fill: new Fill({ color: color }),
+                        fill: new Fill({ color: [color.r, color.g, color.b] }),
                     }));
                 });
 
@@ -137,9 +140,9 @@ export default function MapPlayer({
     }
 
     return (
-        <section className='p-8 bg-white w-full shadow rounded-2xl'>
+        <section className='p-8 bg-white w-full shadow rounded-2xl border border-zinc-200'>
 
-            {/* Year selector */}
+            {/* Time selector */}
             <div className='flex justify-between'>
 
                 <Select>
@@ -168,10 +171,10 @@ export default function MapPlayer({
                 </Select>
             </div>
 
-            {/* Year slide */}
-            <div className='relative flex items-center h-5 w-full  mt-2 mb-5'>
-                <div className='w-full h-1 bg-black' />
-                <div className='absolute top-0 left-0 w-2 h-full rounded border border-black bg-black' />
+            {/* Time slider */}
+            <div className='relative flex items-center h-3 w-full  mt-2 mb-5 px-2'>
+                <div className='w-full h-1 bg-black rounded-sm'/>
+                <div className='absolute top-0 left-0 w-3 h-full rounded border border-black bg-black' />
             </div>
 
             {/* Media player */}

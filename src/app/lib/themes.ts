@@ -1,6 +1,7 @@
 const finland = {
-    primary: [0, 31, 66],
-    secondary: [255, 255, 255]
+    primary: '#001f42',
+    secondary: '#ffffff',
+    background: '#e4e4e7'
 }
 
 export const themes = {
