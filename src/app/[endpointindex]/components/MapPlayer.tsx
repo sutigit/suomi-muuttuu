@@ -19,7 +19,7 @@ import CaretDownIcon from '@/svg-icons/caret-down';
 
 
 // utils
-import { interpolateNumToRGB, natcodeToMetric, hexToRGB} from '../../lib/utils';
+import { interpolateNumToRGB, natcodeToMetric, hexToRGB } from '../../lib/utils';
 
 // definitions
 import { StatData } from '../../lib/definitions';
@@ -60,7 +60,6 @@ export default function MapPlayer({
     endColor: string,
 }) {
 
-    const animatingRef = useRef<boolean>(false);
     const lastTimeRef = useRef<number | null>(null);
     const currentYearRef = useRef<number>(statMinYear);
     const speedRef = useRef<number>(300);
@@ -117,7 +116,7 @@ export default function MapPlayer({
     }
 
     function startAnimation() {
-        animatingRef.current = true;
+        setAnimating(true);
 
         lastTimeRef.current = Date.now();
         currentYearRef.current = statMinYear;
@@ -127,16 +126,8 @@ export default function MapPlayer({
     }
 
     function stopAnimation() {
-        animatingRef.current = false;
+        setAnimating(false);
         layerRef.current?.un('postrender', animateFeatures);
-    }
-
-    function animateMap() {
-        if (animatingRef.current) {
-            stopAnimation();
-        } else {
-            startAnimation();
-        }
     }
 
     return (
@@ -173,15 +164,34 @@ export default function MapPlayer({
 
             {/* Time slider */}
             <div className='relative flex items-center h-3 w-full  mt-2 mb-5 px-2'>
-                <div className='w-full h-1 bg-black rounded-sm'/>
+                <div className='w-full h-1 bg-black rounded-sm' />
                 <div className='absolute top-0 left-0 w-3 h-full rounded border border-black bg-black' />
             </div>
 
             {/* Media player */}
             <div className='flex gap-5 justify-center items-center'>
-                <ToStartIcon width={16} height={16} />
-                {animating ? <PauseIcon width={24} height={24} /> : <PlayIcon width={24} height={24} />}
-                <ToEndIcon width={16} height={16} />
+
+                {/* Skip to left end */}
+                <button>
+                    <ToStartIcon width={16} height={16} />
+                </button>
+
+                {/* Play / Pause */}
+                {animating ?
+                    <button onClick={stopAnimation}>
+                        <PauseIcon width={24} height={24} />
+                    </button> :
+                    <button onClick={startAnimation}>
+                        <PlayIcon width={24} height={24} />
+                    </button>
+                }
+
+                {/* Skip to right end */}
+                <button>
+                    <ToEndIcon width={16} height={16} />
+                </button>
+
+                {/* Speed selector */}
                 <Select>
                     <SelectTrigger className="w-24">
                         <SelectValue placeholder="1 x" />

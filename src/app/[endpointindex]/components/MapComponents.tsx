@@ -87,7 +87,7 @@ export default function MapComponents(
       </section>
 
       {/* Map UI */}
-      <div className='flex flex-col gap-8 w-96 h-96 m-20 z-10 relative'>
+      <div className='flex flex-col gap-6 w-96 h-96 m-20 z-10 relative'>
 
         <div className='absolute -translate-x-full'>
           <MapValues
