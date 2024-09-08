@@ -6,7 +6,7 @@ import { StatData } from '@/app/lib/definitions';
 import MapComponents from './components/MapComponents';
 import StatSelector from './components/StatSelector';
 
-export default async function GeoStatPage({ params }: { params: { endpointindex: string } }) {
+export default async function GeoStatPage({ params }: { params: { endpointindex: string }}) {
 
   const statData: StatData | null = await getStat(stat.endpoints[parseInt(params.endpointindex)].url, stat.endpoints[parseInt(params.endpointindex)].body);
 
@@ -16,7 +16,7 @@ export default async function GeoStatPage({ params }: { params: { endpointindex:
 
   return (
     <section className='relative w-screen h-screen'>
-      <StatSelector endpointindex={parseInt(params.endpointindex)} />
+      <StatSelector endpointindex={parseInt(params.endpointindex)} endpoints={stat.endpoints} />
       <MapComponents statData={statData} />
     </section>
   );

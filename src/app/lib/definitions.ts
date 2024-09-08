@@ -26,3 +26,22 @@ export interface StatData {
     size: number[],
     value: number[],
 }
+
+export interface Endpoint {
+    source_identifier: string;
+    name: string;
+    url: string;
+    body: {
+        query: {
+            code: string;
+            selection: {
+                filter: string;
+                values: string[];
+            };
+        }[];
+        response: {
+            format: string;
+        };
+    };
+}
+
