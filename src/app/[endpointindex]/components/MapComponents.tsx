@@ -31,12 +31,7 @@ import { themes } from '@/app/lib/themes';
 
 import { useSearchParams } from 'next/navigation';
 
-export default function MapComponents(
-  {
-    statData,
-  }: {
-    statData: StatData,
-  }) {
+export default function MapComponents({ statData }: { statData: StatData }) {
 
   const sourceRef = useRef<VectorSource | null>(null);
   const layerRef = useRef<VectorLayer | null>(null);
@@ -60,9 +55,9 @@ export default function MapComponents(
     const paramS = searchParams.get('s');
     const paramE = searchParams.get('e');
 
-    setBgColor(paramBg ? '#'+paramBg : themes.finland.background);
-    setStartColor(paramS ? '#'+paramS : themes.finland.secondary);
-    setEndColor(paramE ? '#'+paramE : themes.finland.primary);
+    setBgColor(paramBg ? '#' + paramBg : themes.finland.background);
+    setStartColor(paramS ? '#' + paramS : themes.finland.secondary);
+    setEndColor(paramE ? '#' + paramE : themes.finland.primary);
 
   }, [searchParams]);
 
