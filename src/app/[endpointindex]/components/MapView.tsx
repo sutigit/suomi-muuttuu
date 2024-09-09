@@ -73,7 +73,7 @@ export default function MapView({
 
         // Fit country to the mapRef
         const extent = sourceRef.current.getExtent();
-        viewRef.current.fit(extent, { size: mapRef.current.getSize(), padding: [80, 80, 80, 80] });
+        viewRef.current.fit(extent, { size: mapRef.current.getSize(), padding: [60, 60, 60, 60] });
 
         // Remove controls
         mapRef.current.getControls().clear();

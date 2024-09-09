@@ -131,7 +131,7 @@ export default function MapPlayer({
     }
 
     return (
-        <section className='p-8 bg-white w-full shadow rounded-2xl border border-zinc-200'>
+        <section className='p-8 bg-white w-full shadow-sm rounded-2xl border border-zinc-300'>
 
             {/* Time selector */}
             <div className='flex justify-between'>

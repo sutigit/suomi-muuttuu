@@ -8,6 +8,8 @@ import MapEditor from './MapEditor';
 import MapPlayer from './MapPlayer';
 import MapView from './MapView';
 import MapValues from './MapValues';
+import MapRecorder from './MapRecorder';
+import MapSearch from './MapSearch';
 
 // ol imports
 import Map from 'ol/Map.js';
@@ -82,7 +84,7 @@ export default function MapComponents({ statData }: { statData: StatData }) {
       </section>
 
       {/* Map UI */}
-      <div className='flex flex-col gap-6 w-96 h-96 m-20 z-10 relative'>
+      <div className='flex flex-col gap-5 w-96 h-96 m-20 z-10 relative'>
 
         <div className='absolute -translate-x-full'>
           <MapValues
@@ -104,11 +106,17 @@ export default function MapComponents({ statData }: { statData: StatData }) {
           startColor={startColor}
           endColor={endColor}
         />
+
+        <MapRecorder />
+
         <MapEditor
           startColor={startColor}
           endColor={endColor}
           bgColor={bgColor}
         />
+
+        <MapSearch />
+
       </div>
 
     </main>
