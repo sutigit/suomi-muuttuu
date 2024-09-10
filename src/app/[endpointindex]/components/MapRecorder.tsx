@@ -6,7 +6,7 @@ export default function MapRecorder({ isRecording, setIsRecording }: { isRecordi
             <div className="flex justify-between items-center">
                 <div className="flex gap-4 items-center">
                     <VideoIcon width={16} height={16} />
-                    <p>Video tallentaja</p>
+                    <p>Kuvan tallentaja</p>
                 </div>
                 <button
                     className="px-4 py-2 bg-black text-white rounded-md "
