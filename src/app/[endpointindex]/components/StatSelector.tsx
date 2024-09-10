@@ -1,7 +1,7 @@
 
-'use client';
-
 import clsx from 'clsx';
+
+// nextjs imports
 import { useSearchParams, useRouter } from 'next/navigation';
 
 // definitions
@@ -23,7 +23,7 @@ export default function StatSelector({ endpointindex, endpoints }: { endpointind
     }
 
     return (
-        <section className="absolute flex flex-col p-8 bg-white w-96 h-96 m-20 z-10 shadow-sm border border-zinc-300 rounded-2xl">
+        <section className="p-8 bg-white w-full shadow-sm rounded-2xl border border-zinc-300">
             {
                 endpoints.map((endpoint, index) => {
 
