@@ -1,14 +1,8 @@
 import { StatData, StatIndex, StatLabel } from './definitions';
 import { RgbColor } from "react-colorful";
 
-export function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+
+// COLOR UTILITIES ---------------------------------------------------------
 
 export function rgbToHex(color: RgbColor): string {
     return "#" + ((1 << 24) + (color.r << 16) + (color.g << 8) + color.b).toString(16).slice(1).toUpperCase();
@@ -33,6 +27,9 @@ export function interpolateNumToRGB(value: number, min: number, max: number, sta
 
     return { r, g, b };
 }
+
+
+// STAT UTILITIES ---------------------------------------------------------
 
 export function natcodeToMetric(natcode: string, statData: StatData, year: number): number {
     const role_geo: string = statData.role.geo[0];
@@ -64,4 +61,19 @@ export function getMinYear(years: StatLabel): number {
 
 export function getMaxYear(years: StatLabel): number {
     return Math.max(...Object.keys(years).map(year => parseInt(year)));
+}
+
+
+
+
+// NUMBER UTILITIES ---------------------------------------------------------
+
+export function getDiffBetween(a: number, b: number, max?: number): number {
+    const diff = Math.abs(a - b);
+    return max ? Math.min(diff, max) : diff;
+}
+
+export function getRange(a: number, b: number, maxLength: number = Infinity, increment: number = 1): number[] {
+    const length = Math.min(maxLength, Math.floor(getDiffBetween(a, b) / increment) + 1);
+    return Array.from({ length }, (_, i) => a + i * increment);
 }
