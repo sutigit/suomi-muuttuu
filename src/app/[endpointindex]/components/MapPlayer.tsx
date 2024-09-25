@@ -195,6 +195,8 @@ export default function MapPlayer({
 
     return (
         <section className='p-8 bg-white w-full shadow-sm rounded-2xl border border-zinc-300'>
+            {/* Title */}
+            <p className='font-medium mb-6'>Asukasluvut kunnittain</p>
 
             {/* Time selector */}
             <div className='flex justify-between'>
@@ -256,10 +258,10 @@ export default function MapPlayer({
 
 
             {/* Media player */}
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-center gap-4 items-center'>
 
                 {/* Play controls */}
-                <div className='flex items-center gap-3'>
+                <div className='flex items-center gap-2'>
                     {/* Start from beginning */}
                     <button>
                         <ToStartIcon width={16} height={16} />
@@ -274,13 +276,7 @@ export default function MapPlayer({
                             <PlayIcon width={24} height={24} />
                         </button>
                     }
-
-                    {/* Repeat toggle */}
-                    <button>
-                        <RepeatIcon width={14} height={14} />
-                    </button>
                 </div>
-
 
                 {/* Speed selector */}
                 <div className='flex items-center gap-2'>

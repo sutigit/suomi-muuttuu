@@ -109,12 +109,12 @@ export default function MapComponents({
       </section> */}
 
       {/* Stat Data Selector */}
-      <div className={clsx('flex flex-col gap-5 w-[360px] h-96 m-20 z-10', {'hidden':isRecording})}>
+      <div className={clsx('flex flex-col gap-5 w-[350px] m-20 z-10', {'hidden':isRecording})}>
         <StatSelector endpointindex={endpointindex} endpoints={endpoints} />
       </div>
 
       {/* Map UI */}
-      <div className={clsx('flex flex-col gap-5 w-96 h-96 m-20 z-10', {'hidden':isRecording})}>
+      <div className={clsx('flex flex-col gap-5 w-[350px] h-96 m-20 z-10', {'hidden':isRecording})}>
 
         <div className='absolute -translate-x-full'>
           <MapValues
@@ -123,7 +123,7 @@ export default function MapComponents({
           />
         </div>
 
-        {/* <MapPlayer
+        <MapPlayer
           sourceRef={sourceRef}
           layerRef={layerRef}
           viewRef={viewRef}
@@ -135,20 +135,20 @@ export default function MapComponents({
           statMaxYear={statMaxYear}
           startColor={startColor}
           endColor={endColor}
-        /> */}
+        />
 
         {/* <MapRecorder 
           isRecording={isRecording}
           setIsRecording={setIsRecording}
-        />
+        /> */}
 
-        <MapEditor
+        {/* <MapEditor
           startColor={startColor}
           endColor={endColor}
           bgColor={bgColor}
-        />
+        /> */}
 
-        <MapSearch /> */}
+        <MapSearch />
 
       </div>
 
