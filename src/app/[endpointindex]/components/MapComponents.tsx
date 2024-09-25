@@ -104,9 +104,9 @@ export default function MapComponents({
       </section>
 
       {/* Map Recording Canvas */}
-      <section className={clsx('absolute inset-0 pointer-events-none', {'hidden':!isRecording})}>
+      {/* <section className={clsx('absolute inset-0 pointer-events-none', {'hidden':!isRecording})}>
         <MapRecordingCanvas />
-      </section>
+      </section> */}
 
       {/* Stat Data Selector */}
       <div className={clsx('flex flex-col gap-5 w-96 h-96 m-20 z-10', {'hidden':isRecording})}>
@@ -123,7 +123,7 @@ export default function MapComponents({
           />
         </div>
 
-        <MapPlayer
+        {/* <MapPlayer
           sourceRef={sourceRef}
           layerRef={layerRef}
           viewRef={viewRef}
@@ -135,9 +135,9 @@ export default function MapComponents({
           statMaxYear={statMaxYear}
           startColor={startColor}
           endColor={endColor}
-        />
+        /> */}
 
-        <MapRecorder 
+        {/* <MapRecorder 
           isRecording={isRecording}
           setIsRecording={setIsRecording}
         />
@@ -148,7 +148,7 @@ export default function MapComponents({
           bgColor={bgColor}
         />
 
-        <MapSearch />
+        <MapSearch /> */}
 
       </div>
 

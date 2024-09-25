@@ -77,3 +77,10 @@ export function getRange(a: number, b: number, maxLength: number = Infinity, inc
     const length = Math.min(maxLength, Math.floor(getDiffBetween(a, b) / increment) + 1);
     return Array.from({ length }, (_, i) => a + i * increment);
 }
+
+export function interpolateNumByTimeDiff(elapsedTime: number, intervalDuration: number, start: number, end: number): number {
+    const diff = end - start;
+    const diffRatio = elapsedTime / intervalDuration;
+    const intermediateNumber = start + diff * diffRatio;
+    return intermediateNumber;
+}
