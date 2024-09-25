@@ -28,8 +28,8 @@ export default function StatSelector({ endpointindex, endpoints }: { endpointind
                 endpoints.map((endpoint, index) => {
 
                     return (
-                        <p key={index} className={clsx('flex p-4 rounded-md', {'font-medium bg-black text-white': endpointindex === index})}>
-                            <button onClick={() => redirect(index)}>
+                        <p key={index} className={clsx('flex py-4 px-5 rounded-md', {'font-medium bg-black text-white': endpointindex === index})}>
+                            <button className='w-full text-start' onClick={() => redirect(index)}>
                                 {endpoint.name}
                             </button>
                         </p>

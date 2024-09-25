@@ -109,7 +109,7 @@ export default function MapComponents({
       </section> */}
 
       {/* Stat Data Selector */}
-      <div className={clsx('flex flex-col gap-5 w-96 h-96 m-20 z-10', {'hidden':isRecording})}>
+      <div className={clsx('flex flex-col gap-5 w-[360px] h-96 m-20 z-10', {'hidden':isRecording})}>
         <StatSelector endpointindex={endpointindex} endpoints={endpoints} />
       </div>
 
