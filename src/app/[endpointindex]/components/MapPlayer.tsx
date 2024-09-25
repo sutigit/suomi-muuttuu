@@ -98,25 +98,30 @@ export default function MapPlayer({
     // Handle animation flow
     const [animating, setAnimating] = useState<boolean>(false);
 
-    const lastTimeRef = useRef<number | null>(null);
+    const startTimeRef = useRef<number | null>(null);
     const currentYearRef = useRef<number>(statMinYear);
     const speedRef = useRef<number>(300);
 
+    const yearGapTime = 4000; // 4s for each year
+
     function animateFeatures(event: RenderEvent) {
-        const time = event.frameState?.time;
-        if (!time || !lastTimeRef.current) {
+        const frameStateTime = event.frameState?.time;
+        if (!frameStateTime || !startTimeRef.current) {
             console.error('Invalid time');
             return;
         }
 
-        const elapsedTime = time - lastTimeRef.current;
+
+        const elapsedTime = frameStateTime - startTimeRef.current;
+
+        console.log('elapsedTime', elapsedTime);
 
         if (currentYearRef.current <= localRightSideYear) {
 
             if (elapsedTime > speedRef.current) {
 
+                // Paints the map with the current year's data
                 const features = sourceRef.current?.getFeatures();
-
                 features?.forEach((feature) => {
 
                     const natcode = feature.get('NATCODE');
@@ -135,10 +140,17 @@ export default function MapPlayer({
                     }));
                 });
 
+                // Set the next year
                 currentYearRef.current += 1;
                 setCurrentYear(currentYearRef.current);
+
+                // Handle map player state
                 setSliderHandlePosition(prev => prev + 100/getDiffBetween(localLeftSideYear, localRightSideYear, 40));
-                lastTimeRef.current = time;
+
+                // Set new time for previous render time
+                // startTimeRef.current = time;
+
+                // Re-render the map
                 mapRef.current?.render();
             }
         } else {
@@ -153,7 +165,7 @@ export default function MapPlayer({
         setAnimating(true);
         setSliderHandlePosition(0);
 
-        lastTimeRef.current = Date.now();
+        startTimeRef.current = Date.now();
         currentYearRef.current = localLeftSideYear;
         layerRef.current?.on('postrender', animateFeatures);
         // trigger postrender event by changing something: set style to null
