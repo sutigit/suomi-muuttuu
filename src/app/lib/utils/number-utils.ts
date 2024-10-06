@@ -2,26 +2,33 @@
 export class NumberUtils {
 
     /**
-     * Returns the base 10 logarithm of a number.
+     * Returns the base 10 logarithm of a number, using the +1 trick to handle non-positive numbers.
+     * The logarithm is calculated as `log10(num + 1)` to ensure valid results for non-negative numbers, including 0.
      * 
-     * @param {number} num - The number to calculate the logarithm of.
+     * @param {number} num - The number to calculate the logarithm of (0 and positive numbers are allowed).
      * 
-     * @returns {number} The base 10 logarithm of the input number.
+     * @returns {number} The base 10 logarithm of the input number with the +1 adjustment.
      * 
-     * @throws {Error} If the input number is not a positive number.
+     * @throws {Error} If the input number is negative.
      * 
      * @example
      * 
      * log10Num(1000);
-     * // returns 3
+     * // returns 3.000434077479319 (since log10(1001) ≈ 3)
+     * 
+     * log10Num(0);
+     * // returns 0 (since log10(0 + 1) = log10(1) = 0)
      */
     static log10Num(num: number): number {
-
-        if (num <= 0 || isNaN(num)) {
-            throw new Error("log10Num: input must be a positive number");
+        if (isNaN(num)) {
+            throw new Error("log10Num: input must be a number");
         }
 
-        return Math.log10(num);
+        if (num < 0) {
+            throw new Error("log10Num: input must be a non-negative number");
+        }
+
+        return Math.log10(num + 1); // Apply the +1 trick to
     }
 
     /**
@@ -43,27 +50,33 @@ export class NumberUtils {
         return arr.map(this.log10Num);
     }
 
+
     /**
-     * Returns the inverse of the base 10 logarithm of a number.
+     * Returns the inverse of the base 10 logarithm of a number, accounting for the +1 trick used in the logarithmic transformation.
+     * The inverse operation reverses the transformation where the log was applied to `num + 1`.
      * 
-     * @param {number} num - The number to calculate the inverse logarithm of.
+     * @param {number} num - The number to calculate the inverse logarithm of (expected to be a value transformed with the +1 trick).
      * 
-     * @returns {number} The inverse of the base 10 logarithm of the input number.
+     * @returns {number} The inverse of the base 10 logarithm of the input number, reversing the +1 adjustment.
      * 
-     * @throws {Error} If the input number is not a positive number.
+     * @throws {Error} If the input number is not a non-negative number.
      * 
      * @example
      * 
      * inverseLog10Num(3);
-     * // returns 1000
+     * // returns 999 (since log10(1000 + 1) = 3)
      */
     static inverseLog10Num(num: number): number {
 
-        if (num <= 0 || isNaN(num)) {
-            throw new Error("inverseLog10Num: input must be a positive number");
+        if (isNaN(num)) {
+            throw new Error("inverseLog10Num: input must be a number");
         }
 
-        return Math.pow(10, num);
+        if (num < 0) {
+            throw new Error("inverseLog10Num: input must be a non-negative number");
+        }
+
+        return Math.pow(10, num) - 1; // Subtract 1 to reverse the +1 trick
     }
 
     /**
