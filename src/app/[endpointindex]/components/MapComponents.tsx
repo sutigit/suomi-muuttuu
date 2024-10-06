@@ -27,7 +27,7 @@ import View from 'ol/View.js';
 import { StatData, Endpoint } from '@/app/lib/definitions';
 
 // utils
-import { StatUtils as stu } from '@/app/lib/utils/stat';
+import { StatUtils as stu } from '@/app/lib/utils/stat-utils';
 
 import clsx from 'clsx';
 

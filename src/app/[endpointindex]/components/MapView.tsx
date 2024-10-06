@@ -12,8 +12,8 @@ import Fill from 'ol/style/Fill.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { ColorUtils as clu } from '@/app/lib/utils/color';
-import { StatUtils as stu } from '@/app/lib/utils/stat';
+import { ColorUtils as clu } from '@/app/lib/utils/color-utils';
+import { StatUtils as stu } from '@/app/lib/utils/stat-utils';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';

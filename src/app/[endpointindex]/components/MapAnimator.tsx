@@ -20,9 +20,9 @@ import CaretDownIcon from '@/svg-icons/caret-down';
 
 
 // utils
-import { NumberUtils as nu } from '@/app/lib/utils/number';
-import { ColorUtils as clu } from '@/app/lib/utils/color';
-import { StatUtils as stu } from '@/app/lib/utils/stat';
+import { NumberUtils as nu } from '@/app/lib/utils/number-utils';
+import { ColorUtils as clu } from '@/app/lib/utils/color-utils';
+import { StatUtils as stu } from '@/app/lib/utils/stat-utils';
 
 // definitions
 import { StatData } from '../../lib/definitions';

@@ -1,4 +1,4 @@
-import { ColorUtils as clu } from "@/app/lib/utils/color";
+import { ColorUtils as clu } from "@/app/lib/utils/color-utils";
 
 export default function MapValues({
     statMinValue,
