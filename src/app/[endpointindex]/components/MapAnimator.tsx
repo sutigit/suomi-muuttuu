@@ -43,7 +43,7 @@ import RenderEvent from 'ol/render/Event';
 
 
 
-export default function MapPlayer({
+export default function MapAnimator({
     sourceRef,
     layerRef,
     viewRef,

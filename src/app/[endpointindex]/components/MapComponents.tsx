@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 
 // my components
 import MapEditor from './MapEditor';
-import MapPlayer from './MapPlayer';
+import MapAnimator from './MapAnimator';
 import MapView from './MapView';
 import MapValues from './MapValues';
 import MapRecorder from './MapRecorder';
@@ -86,7 +86,7 @@ export default function MapComponents({
   return (
     <main className='relative w-full h-full flex justify-between'>
 
-      {/* Map */}
+      {/* Map background */}
       <section className='absolute inset-0' style={{ backgroundColor: bgColor }}>
         <MapView
           sourceRef={sourceRef}
@@ -103,18 +103,16 @@ export default function MapComponents({
         />
       </section>
 
-      {/* Map Recording Canvas */}
-      {/* <section className={clsx('absolute inset-0 pointer-events-none', {'hidden':!isRecording})}>
-        <MapRecordingCanvas />
-      </section> */}
+      {/* Left UI panel */}
+      <div className={clsx('flex flex-col gap-5 w-[350px] m-20 z-10', { 'hidden': isRecording })}>
 
-      {/* Stat Data Selector */}
-      <div className={clsx('flex flex-col gap-5 w-[350px] m-20 z-10', {'hidden':isRecording})}>
         <StatSelector endpointindex={endpointindex} endpoints={endpoints} />
+
       </div>
 
-      {/* Map UI */}
-      <div className={clsx('flex flex-col gap-5 w-[350px] h-96 m-20 z-10', {'hidden':isRecording})}>
+
+      {/* Right UI panel */}
+      <div className={clsx('flex flex-col gap-5 w-[350px] h-96 m-20 z-10', { 'hidden': isRecording })}>
 
         <div className='absolute -translate-x-full'>
           <MapValues
@@ -123,7 +121,7 @@ export default function MapComponents({
           />
         </div>
 
-        <MapPlayer
+        <MapAnimator
           sourceRef={sourceRef}
           layerRef={layerRef}
           viewRef={viewRef}
@@ -136,17 +134,6 @@ export default function MapComponents({
           startColor={startColor}
           endColor={endColor}
         />
-
-        {/* <MapRecorder 
-          isRecording={isRecording}
-          setIsRecording={setIsRecording}
-        /> */}
-
-        {/* <MapEditor
-          startColor={startColor}
-          endColor={endColor}
-          bgColor={bgColor}
-        /> */}
 
         <MapSearch />
 
