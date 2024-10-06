@@ -12,7 +12,8 @@ import Fill from 'ol/style/Fill.js';
 import GeoJSON from 'ol/format/GeoJSON.js';
 
 // utils
-import { interpolateNumToRGB, natcodeToMetric, hexToRGB } from '../../lib/utils';
+import { ColorUtils as clu } from '@/app/lib/utils/color';
+import { StatUtils as stu } from '@/app/lib/utils/stat';
 
 // geojson
 import geojson from '@/geojson/suomen_kunta_jako.json';
@@ -81,15 +82,15 @@ export default function MapView({
         // Initial fill
         const features = sourceRef.current.getFeatures();
 
-        const startColorRgb = hexToRGB(startColor);
-        const endColorRgb = hexToRGB(endColor);
+        const startColorRgb = clu.hexToRGB(startColor);
+        const endColorRgb = clu.hexToRGB(endColor);
 
         features.forEach((feature) => {
 
             const natcode = feature.get('NATCODE');
-            const statValue = natcodeToMetric(natcode, statData, statMinYear);
+            const statValue = stu.natcodeToMetric(natcode, statData, statMinYear);
 
-            const color = interpolateNumToRGB(
+            const color = clu.interpolateNumToRGB(
                 statValue,
                 statMinValue,
                 statMaxValue,
@@ -111,15 +112,15 @@ export default function MapView({
 
         const features = sourceRef.current.getFeatures();
 
-        const startColorRgb = hexToRGB(startColor);
-        const endColorRgb = hexToRGB(endColor);
+        const startColorRgb = clu.hexToRGB(startColor);
+        const endColorRgb = clu.hexToRGB(endColor);
 
         features.forEach((feature) => {
 
             const natcode = feature.get('NATCODE');
-            const statValue = natcodeToMetric(natcode, statData, statMinYear);
+            const statValue = stu.natcodeToMetric(natcode, statData, statMinYear);
 
-            const color = interpolateNumToRGB(
+            const color = clu.interpolateNumToRGB(
                 statValue,
                 statMinValue,
                 statMaxValue,

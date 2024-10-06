@@ -27,12 +27,8 @@ import View from 'ol/View.js';
 import { StatData, Endpoint } from '@/app/lib/definitions';
 
 // utils
-import {
-  getMinValue,
-  getMaxValue,
-  getMinYear,
-  getMaxYear
-} from '@/app/lib/utils';
+import { StatUtils as stu } from '@/app/lib/utils/stat';
+
 import clsx from 'clsx';
 
 // themes
@@ -56,10 +52,10 @@ export default function MapComponents({
   const mapRef = useRef<Map | null>(null);
 
   // pre-process stat data
-  const statMinValue = getMinValue(statData.value);
-  const statMaxValue = getMaxValue(statData.value);
-  const statMinYear = getMinYear(statData.dimension[statData.role.time[0]].category.label);
-  const statMaxYear = getMaxYear(statData.dimension[statData.role.time[0]].category.label);
+  const statMinValue = stu.getMinValue(statData.value);
+  const statMaxValue = stu.getMaxValue(statData.value);
+  const statMinYear = stu.getMinYear(statData.dimension[statData.role.time[0]].category.label);
+  const statMaxYear = stu.getMaxYear(statData.dimension[statData.role.time[0]].category.label);
 
   // read url search params
   const searchParams = useSearchParams();
@@ -116,6 +112,10 @@ export default function MapComponents({
 
         <div className='absolute -translate-x-full'>
           <MapValues
+            statMinValue={statMinValue}
+            statMaxValue={statMaxValue}
+            statMinYear={statMinYear}
+            statMaxYear={statMaxYear}
             startColor={startColor}
             endColor={endColor}
           />

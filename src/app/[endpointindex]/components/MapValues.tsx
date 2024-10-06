@@ -1,11 +1,27 @@
-import { interpolateNumToRGB, hexToRGB } from "@/app/lib/utils";
+import { ColorUtils as clu } from "@/app/lib/utils/color";
 
-export default function MapValues({ startColor, endColor }: { startColor: string, endColor: string }) {
-    
+export default function MapValues({
+    statMinValue,
+    statMaxValue,
+    statMinYear,
+    statMaxYear,
+    startColor,
+    endColor,
+}: {
+    statMinValue: number,
+    statMaxValue: number,
+    statMinYear: number,
+    statMaxYear: number,
+    startColor: string,
+    endColor: string,
+}) {
+
     function computeBackgroundColor(value: number) {
-        const rgb = interpolateNumToRGB(value, 0, 100, hexToRGB(startColor), hexToRGB(endColor));
+        const rgb = clu.interpolateNumToRGB(value, 0, 100, clu.hexToRGB(startColor), clu.hexToRGB(endColor));
         return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
     }
+
+
 
     return (
         <div className="flex flex-col items-end gap-4 px-12 rounded-lg">

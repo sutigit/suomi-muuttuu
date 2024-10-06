@@ -20,14 +20,9 @@ import CaretDownIcon from '@/svg-icons/caret-down';
 
 
 // utils
-import {
-    interpolateNumToRGB,
-    interpolateNumByTimeDiff,
-    natcodeToMetric,
-    hexToRGB,
-    getRange,
-    getDiffBetween,
-} from '../../lib/utils';
+import { NumberUtils as nu } from '@/app/lib/utils/number';
+import { ColorUtils as clu } from '@/app/lib/utils/color';
+import { StatUtils as stu } from '@/app/lib/utils/stat';
 
 // definitions
 import { StatData } from '../../lib/definitions';
@@ -70,8 +65,8 @@ export default function MapAnimator({
 }) {
 
     // Initial styling
-    const startColorRgb = hexToRGB(startColor);
-    const endColorRgb = hexToRGB(endColor);
+    const startColorRgb = clu.hexToRGB(startColor);
+    const endColorRgb = clu.hexToRGB(endColor);
 
     // Handle player control states
     const [startYear, setStartMinYear] = useState<number>(statMinYear);
@@ -125,11 +120,11 @@ export default function MapAnimator({
                 municipalities?.forEach((municipality) => {
 
                     const natcode = municipality.get('NATCODE');
-                    const currentYearStatValue = natcodeToMetric(natcode, statData, currentYearRef.current);
-                    const nextYearStatValue = natcodeToMetric(natcode, statData, currentYearRef.current + 1);
-                    const intermediateStatValue = interpolateNumByTimeDiff(elapsedTime, intervalDuration, currentYearStatValue, nextYearStatValue);
+                    const currentYearStatValue = stu.natcodeToMetric(natcode, statData, currentYearRef.current);
+                    const nextYearStatValue = stu.natcodeToMetric(natcode, statData, currentYearRef.current + 1);
+                    const intermediateStatValue = nu.interpolateNumByTimeDiff(elapsedTime, intervalDuration, currentYearStatValue, nextYearStatValue);
 
-                    const color = interpolateNumToRGB(
+                    const color = clu.interpolateNumToRGB(
                         intermediateStatValue,
                         statMinValue,
                         statMaxValue,
@@ -156,7 +151,7 @@ export default function MapAnimator({
             mapRef.current?.render();
 
             // // Handle map player state
-            setSliderHandlePosition(prev => prev + 100 / getDiffBetween(startYear, targetYear, 40));
+            setSliderHandlePosition(prev => prev + 100 / nu.getDiffBetween(startYear, targetYear, 40));
 
         } else {
             stopAnimation();
@@ -208,7 +203,7 @@ export default function MapAnimator({
                     </SelectTrigger>
                     <SelectContent>
                         {
-                            getRange(statMinYear, statMaxYear).map((year) => (
+                            nu.getRange(statMinYear, statMaxYear).map((year) => (
                                 <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                             ))
                         }
@@ -228,7 +223,7 @@ export default function MapAnimator({
                     </SelectTrigger>
                     <SelectContent>
                         {
-                            getRange(statMinYear, statMaxYear).map((year) => (
+                            nu.getRange(statMinYear, statMaxYear).map((year) => (
                                 <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                             ))
                         }
@@ -245,8 +240,8 @@ export default function MapAnimator({
 
                     {/* Slider tics */}
                     {
-                        getRange(startYear, targetYear, 40).map((year) => (
-                            <div key={year} className='border-r-2 border-white h-full' style={{ width: `${(100.0 / getDiffBetween(startYear, targetYear, 40))}%` }} />
+                        nu.getRange(startYear, targetYear, 40).map((year) => (
+                            <div key={year} className='border-r-2 border-white h-full' style={{ width: `${(100.0 / nu.getDiffBetween(startYear, targetYear, 40))}%` }} />
                         ))
                     }
                 </div>
@@ -287,7 +282,7 @@ export default function MapAnimator({
                         </SelectTrigger>
                         <SelectContent>
                             {
-                                getRange(0.25, 2, Infinity, 0.25).map((speed) => (
+                                nu.getRange(0.25, 2, Infinity, 0.25).map((speed) => (
                                     <SelectItem key={speed} value={speed.toString()}>{speed}</SelectItem>
                                 ))
                             }
